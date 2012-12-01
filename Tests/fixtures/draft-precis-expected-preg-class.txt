@@ -1,0 +1,11 @@
+<?php
+
+namespace my\ns;
+
+class TestClass {
+    const CHARCLASS_PRECIS_DISALLOWED = '\x{0}-\x{1F}\x{7F}-\x{9F}\x{AD}';
+    const CHARCLASS_PRECIS_FREE_PVAL = '\x{20}\x{A0}-\x{A9}\x{AB}-\x{AC}\x{AE}-\x{B6}\x{B8}-\x{BF}\x{D7}\x{F7}';
+    const CHARCLASS_PRECIS_PVALID = '\x{21}-\x{7E}\x{AA}\x{C0}-\x{D6}\x{D8}-\x{F6}';
+    const CHARCLASS_PRECIS_CONTEXTO = '\x{B7}';
+    const PATTERN = '#(?P<PRECIS_DISALLOWED>[\x{0}-\x{1F}\x{7F}-\x{9F}\x{AD}]+)|(?P<PRECIS_FREE_PVAL>[\x{20}\x{A0}-\x{A9}\x{AB}-\x{AC}\x{AE}-\x{B6}\x{B8}-\x{BF}\x{D7}\x{F7}]+)|(?P<PRECIS_PVALID>[\x{21}-\x{7E}\x{AA}\x{C0}-\x{D6}\x{D8}-\x{F6}]+)|(?P<PRECIS_CONTEXTO>[\x{B7}]+)#uS';
+}

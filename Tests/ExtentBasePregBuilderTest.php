@@ -38,5 +38,9 @@ class ExtentBasePregBuilderTest extends PHPUnit_Framework_TestCase
     $pattern = $this->builder->pattern(array($subdisallowed, $subpvalid));
 
     $this->assertEquals('#' . $subdisallowed . '|' . $subpvalid . '#uS', $pattern);
+
+    // Test subpattern-negative flag
+    $subpvalidneg = $this->builder->subpattern($ccpvalid, 'PVALIDNEG', TRUE);
+    $this->assertEquals('(?P<PVALIDNEG>[^' . $ccpvalid . ']+)', $subpvalidneg);
   }
 }
