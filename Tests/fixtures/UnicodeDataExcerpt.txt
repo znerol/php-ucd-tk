@@ -1,0 +1,6 @@
+33FE;IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY THIRTY-ONE;So;0;L;<compat> 0033 0031 65E5;;;;N;;;;;
+33FF;SQUARE GAL;So;0;ON;<square> 0067 0061 006C;;;;N;;;;;
+3400;<CJK Ideograph Extension A, First>;Lo;0;L;;;;;N;;;;;
+4DB5;<CJK Ideograph Extension A, Last>;Lo;0;L;;;;;N;;;;;
+4DC0;HEXAGRAM FOR THE CREATIVE HEAVEN;So;0;ON;;;;;N;;;;;
+4DC1;HEXAGRAM FOR THE RECEPTIVE EARTH;So;0;ON;;;;;N;;;;;

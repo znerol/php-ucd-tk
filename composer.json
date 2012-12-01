@@ -1,0 +1,18 @@
+{
+    "name": "znerol/unidata-toolkit",
+    "description": "Toolkit for reading, writing and transforming unicode data tables",
+    "authors": [
+        {
+            "name": "Lorenz Schori",
+            "email": "lo@znerol.ch"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-0": { "Znerol\\Unidata": "" }
+    },
+    "target-dir": "Znerol/Unidata",
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    }
+}
