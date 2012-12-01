@@ -9,9 +9,10 @@ use Znerol\Unidata\Uniprop;
 class UnipropAll extends UnipropBase
 {
   private $propname;
+  private $comment;
 
-  public function __construct(Uniprop\Set $set, $propname, $comment = NULL) {
-    parent::__construct($set);
+  public function __construct(Command $reader, Uniprop\Set $set, $propname, $comment = NULL) {
+    parent::__construct($reader, $set);
     $this->propname = $propname;
     $this->comment = $comment;
   }
@@ -21,6 +22,7 @@ class UnipropAll extends UnipropBase
   }
 
   protected function getComment($start, $end, $fields, $comment) {
-    return is_string($this->comment) ?: $comment;
+    return is_string($this->comment) ? $this->comment :
+      parent::getComment($start, $end, $fields, $comment);
   }
 }

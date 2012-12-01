@@ -7,9 +7,12 @@ use Znerol\Unidata\Uniprop;
 
 abstract class UnipropBase implements Command
 {
+  private $reader;
+
   private $set;
 
-  public function __construct(Uniprop\Set $set) {
+  public function __construct(Command $reader, Uniprop\Set $set) {
+    $this->reader = $reader;
     $this->set = $set;
   }
 
@@ -22,7 +25,8 @@ abstract class UnipropBase implements Command
       $props = $this->getProps($start, $end, $fields, $comment);
       if (!empty($props)) {
         $comment = $this->getComment($start, $end, $fields, $comment);
-        $extents[] = new Uniprop($start, $end + 1, $props, $comment);
+        $next = ($end ?: $start) + 1;
+        $extents[] = new Uniprop($start, $next, $props, $comment);
       }
     }
 
