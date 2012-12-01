@@ -1,7 +1,9 @@
 <?php
 
 namespace Znerol\Unidata\Runner;
+
 use Znerol\Unidata\Command;
+use Znerol\Unidata\CommandServices;
 use Znerol\Unidata\Runner;
 
 class Base implements Runner
@@ -10,7 +12,7 @@ class Base implements Runner
     return fopen($url, "r");
   }
 
-  public function run(Command $command) {
-    return $command->run($this);
+  public function run(Command $command, CommandServices $srv) {
+    return $command->run($srv);
   }
 }

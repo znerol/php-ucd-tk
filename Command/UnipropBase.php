@@ -2,22 +2,19 @@
 namespace Znerol\Unidata\Command;
 
 use Znerol\Unidata\Command;
-use Znerol\Unidata\Runner;
+use Znerol\Unidata\CommandServices;
 use Znerol\Unidata\Uniprop;
 
 abstract class UnipropBase implements Command
 {
   private $reader;
 
-  private $set;
-
-  public function __construct(Command $reader, Uniprop\Set $set) {
+  public function __construct(Command $reader) {
     $this->reader = $reader;
-    $this->set = $set;
   }
 
-  public function run(Runner $runner) {
-    $rows = $runner->run($this->reader);
+  public function run(CommandServices $srv) {
+    $rows = $srv->getRunner()->run($this->reader, $srv);
 
     $extents = array();
     foreach ($rows as $row) {
@@ -30,7 +27,7 @@ abstract class UnipropBase implements Command
       }
     }
 
-    return $this->set->union($extents);
+    return $srv->getSet()->union($extents);
   }
 
   /**

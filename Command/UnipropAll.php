@@ -3,16 +3,14 @@
 namespace Znerol\Unidata\Command;
 
 use Znerol\Unidata\Command;
-use Znerol\Unidata\Runner;
-use Znerol\Unidata\Uniprop;
 
 class UnipropAll extends UnipropBase
 {
   private $propname;
   private $comment;
 
-  public function __construct(Command $reader, Uniprop\Set $set, $propname, $comment = NULL) {
-    parent::__construct($reader, $set);
+  public function __construct(Command $reader, $propname, $comment = NULL) {
+    parent::__construct($reader);
     $this->propname = $propname;
     $this->comment = $comment;
   }

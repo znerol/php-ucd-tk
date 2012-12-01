@@ -1,15 +1,21 @@
 <?php
 
 use Znerol\Unidata\Command;
+use Znerol\Unidata\DefaultServices;
 use Znerol\Unidata\Dumper;
 use Znerol\Unidata\Runner;
 use Znerol\Unidata\Uniprop;
 
 class DumperUnidataTableTest extends PHPUnit_Framework_TestCase
 {
+  private $srv;
+
+  private $stream;
+
   private $dumper;
 
   public function setUp() {
+    $this->srv = new DefaultServices(new Runner\Base());
     $this->stream = fopen("php://memory", "rw");
     $this->dumper = new Dumper\UnidataTable();
   }
@@ -79,15 +85,13 @@ class DumperUnidataTableTest extends PHPUnit_Framework_TestCase
 
   public function testReadWriteReread() {
     $fixture = dirname(__FILE__) . '/fixtures/Blocks.txt';
-    $set = new Uniprop\Set();
 
     // Reader and parser for reading the blocks file
     $reader = new Command\ReadTable($fixture);
-    $parser = new Command\UnipropAll($reader, $set, 'blk');
+    $parser = new Command\UnipropAll($reader, 'blk');
 
     // Parse using a standard runner
-    $runner = new Runner\Base();
-    $orig_extents = $runner->run($parser);
+    $orig_extents = $this->srv->getRunner()->run($parser, $this->srv);
     $this->assertEquals(220, count($orig_extents));
 
     // Dump blocks to in-memory stream
@@ -100,9 +104,10 @@ class DumperUnidataTableTest extends PHPUnit_Framework_TestCase
       ->method('openURL')
       ->with($this->equalTo($fixture))
       ->will($this->returnValue($this->stream));
+    $newsrv = new DefaultServices($runner);
 
     // Rerun parser
-    $reparse_extents = $runner->run($parser);
+    $reparse_extents = $newsrv->getRunner()->run($parser, $newsrv);
 
     $this->assertEquals($orig_extents, $reparse_extents);
   }

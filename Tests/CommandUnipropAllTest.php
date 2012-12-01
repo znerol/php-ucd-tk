@@ -1,16 +1,18 @@
 <?php
 
 use Znerol\Unidata\Command;
+use Znerol\Unidata\DefaultServices;
 use Znerol\Unidata\Runner;
 use Znerol\Unidata\Uniprop;
 
 class CommandUnipropAllTest extends PHPUnit_Framework_TestCase
 {
-  private $parser;
+  private $srv;
+
+  private $reader;
 
   public function setUp() {
-    $this->runner = new Runner\Base();
-    $this->set = new Uniprop\Set();
+    $this->srv = new DefaultServices(new Runner\Base());
 
     // First lines of PropList-6.2.0.txt after tokenizing.
     $data = array(
@@ -39,7 +41,7 @@ class CommandUnipropAllTest extends PHPUnit_Framework_TestCase
   }
 
   public function testParsePropListData() {
-    $command = new Command\UnipropAll($this->reader, $this->set, 'TESTPROP');
+    $command = new Command\UnipropAll($this->reader, 'TESTPROP');
 
     // First lines of PropList-6.2.0.txt after tokenizing.
     $expected = array(
@@ -68,12 +70,12 @@ class CommandUnipropAllTest extends PHPUnit_Framework_TestCase
       new Uniprop(0x3000, 0x3001, array('TESTPROP' => 'White_Space'),  ' Zs       IDEOGRAPHIC SPACE'),
     );
 
-    $result = $this->runner->run($command);
+    $result = $this->srv->getRunner()->run($command, $this->srv);
     $this->assertEquals($expected, $result);
   }
 
   public function testParseWithCustomComment() {
-    $command = new Command\UnipropAll($this->reader, $this->set, 'OTHERPROP', 'COMMENT');
+    $command = new Command\UnipropAll($this->reader, 'OTHERPROP', 'COMMENT');
 
     // First lines of PropList-6.2.0.txt after tokenizing.
     $expected = array(
@@ -102,7 +104,7 @@ class CommandUnipropAllTest extends PHPUnit_Framework_TestCase
       new Uniprop(0x3000, 0x3001, array('OTHERPROP' => 'White_Space'),  'COMMENT'),
     );
 
-    $result = $this->runner->run($command);
+    $result = $this->srv->getRunner()->run($command, $this->srv);
     $this->assertEquals($expected, $result);
   }
 }

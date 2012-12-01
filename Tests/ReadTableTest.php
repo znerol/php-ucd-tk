@@ -1,20 +1,21 @@
 <?php
 
 use Znerol\Unidata\Command;
+use Znerol\Unidata\DefaultServices;
 use Znerol\Unidata\Runner;
 
 class ReadTableTest extends PHPUnit_Framework_TestCase
 {
-  private $parser;
+  private $srv;
 
   public function setUp() {
-    $this->runner = new Runner\Base();
+    $this->srv = new DefaultServices(new Runner\Base());
   }
 
   public function testParseBlocks() {
     $command = new Command\ReadTable(dirname(__FILE__) . '/fixtures/Blocks.txt');
 
-    $result = $this->runner->run($command);
+    $result = $this->srv->getRunner()->run($command, $this->srv);
     $this->assertEquals(220, count($result));
   }
 
@@ -29,7 +30,7 @@ class ReadTableTest extends PHPUnit_Framework_TestCase
       array(0x4DC1, false, array('4DC1', 'HEXAGRAM FOR THE RECEPTIVE EARTH', 'So', '0', 'ON', '', '', '', '', 'N', '', '', '', '', ''), ''),
     );
 
-    $result = $this->runner->run($command);
+    $result = $this->srv->getRunner()->run($command, $this->srv);
     $this->assertEquals($expected, $result);
   }
 }

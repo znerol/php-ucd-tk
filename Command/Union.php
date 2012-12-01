@@ -3,22 +3,20 @@
 namespace Znerol\Unidata\Command;
 
 use Znerol\Unidata\Command;
-use Znerol\Unidata\Runner;
-use Znerol\Unidata\Uniprop;
+use Znerol\Unidata\CommandServices;
 
 class Union Implements Command
 {
-  private $set;
-
   private $commands;
 
-  public function __construct(Uniprop\Set $set, $commands) {
-    $this->set = $set;
+  public function __construct($commands) {
     $this->commands = $commands;
   }
 
-  public function run(Runner $runner) {
+  public function run(CommandServices $srv) {
     $result = array();
+
+    $runner = $srv->getRunner();
 
     foreach ($this->commands as $command) {
       $tmp = $runner->run($command);

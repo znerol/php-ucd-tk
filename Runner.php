@@ -12,5 +12,5 @@ interface Runner
   /**
    * Run a command and return the result.
    */
-  public function run(Command $command);
+  public function run(Command $command, CommandServices $srv);
 }
