@@ -20,8 +20,8 @@ class Aggregate implements Command
     $set = $srv->getSet();
 
     foreach ($this->commands as $command) {
-      $tmp = $runner->run($command);
-      $tmp = $set->diff($tmp, $result);
+      $tmp = $runner->run($command, $srv);
+      $tmp = $set->difference($tmp, $result);
       $result = $set->union($result, $tmp);
     }
 
