@@ -16,6 +16,7 @@
       <directory suffix=".php">.</directory>
       <exclude>
         <directory suffix=".php">vendor</directory>
+        <directory suffix=".php">examples</directory>
       </exclude>
     </whitelist>
   </filter>
