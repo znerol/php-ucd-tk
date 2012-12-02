@@ -4,7 +4,7 @@ use Znerol\Unidata\Command;
 use Znerol\Unidata\DefaultServices;
 use Znerol\Unidata\Runner;
 
-class ReadTableTest extends PHPUnit_Framework_TestCase
+class CommandReadTableTest extends PHPUnit_Framework_TestCase
 {
   private $srv;
 
