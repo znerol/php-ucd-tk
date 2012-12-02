@@ -15,7 +15,7 @@ class CommandReadTableTest extends PHPUnit_Framework_TestCase
   public function testParseBlocks() {
     $command = new Command\ReadTable(dirname(__FILE__) . '/fixtures/Blocks.txt');
 
-    $result = $this->srv->getRunner()->run($command, $this->srv);
+    $result = $this->srv->getRunnerService()->run($command);
     $this->assertEquals(220, count($result));
   }
 
@@ -30,7 +30,7 @@ class CommandReadTableTest extends PHPUnit_Framework_TestCase
       array(0x4DC1, false, array('4DC1', 'HEXAGRAM FOR THE RECEPTIVE EARTH', 'So', '0', 'ON', '', '', '', '', 'N', '', '', '', '', ''), ''),
     );
 
-    $result = $this->srv->getRunner()->run($command, $this->srv);
+    $result = $this->srv->getRunnerService()->run($command);
     $this->assertEquals($expected, $result);
   }
 }

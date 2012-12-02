@@ -70,7 +70,7 @@ class CommandUnipropAllTest extends PHPUnit_Framework_TestCase
       new Uniprop(0x3000, 0x3001, array('TESTPROP' => 'White_Space'),  ' Zs       IDEOGRAPHIC SPACE'),
     );
 
-    $result = $this->srv->getRunner()->run($command, $this->srv);
+    $result = $this->srv->getRunnerService()->run($command);
     $this->assertEquals($expected, $result);
   }
 
@@ -104,7 +104,7 @@ class CommandUnipropAllTest extends PHPUnit_Framework_TestCase
       new Uniprop(0x3000, 0x3001, array('OTHERPROP' => 'White_Space'),  'COMMENT'),
     );
 
-    $result = $this->srv->getRunner()->run($command, $this->srv);
+    $result = $this->srv->getRunnerService()->run($command);
     $this->assertEquals($expected, $result);
   }
 }

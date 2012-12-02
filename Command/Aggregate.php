@@ -16,11 +16,11 @@ class Aggregate implements Command
   public function run(CommandServices $srv) {
     $result = array();
 
-    $runner = $srv->getRunner();
     $set = $srv->getSet();
+    $run = $srv->getRunnerService();
 
     foreach ($this->commands as $command) {
-      $tmp = $runner->run($command, $srv);
+      $tmp = $run->run($command);
       $tmp = $set->difference($tmp, $result);
       $result = $set->union($result, $tmp);
     }

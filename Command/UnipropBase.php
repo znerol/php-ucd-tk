@@ -14,7 +14,7 @@ abstract class UnipropBase implements Command
   }
 
   public function run(CommandServices $srv) {
-    $rows = $srv->getRunner()->run($this->reader, $srv);
+    $rows = $srv->getRunnerService()->run($this->reader);
 
     $extents = array();
     foreach ($rows as $row) {

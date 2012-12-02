@@ -71,7 +71,7 @@ class CommandAggregateTest extends PHPUnit_Framework_TestCase
       $this->build_whitespace,
     ));
 
-    $result = $this->srv->getRunner()->run($command, $this->srv);
+    $result = $this->srv->getRunnerService()->run($command);
     $this->assertEquals($expected, $result);
   }
 
@@ -97,7 +97,7 @@ class CommandAggregateTest extends PHPUnit_Framework_TestCase
       $this->build_mandatory_break,
     ));
 
-    $result = $this->srv->getRunner()->run($command, $this->srv);
+    $result = $this->srv->getRunnerService()->run($command);
     $this->assertEquals($expected, $result);
   }
 

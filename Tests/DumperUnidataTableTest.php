@@ -91,7 +91,7 @@ class DumperUnidataTableTest extends PHPUnit_Framework_TestCase
     $parser = new Command\UnipropAll($reader, 'blk');
 
     // Parse using a standard runner
-    $orig_extents = $this->srv->getRunner()->run($parser, $this->srv);
+    $orig_extents = $this->srv->getRunnerService()->run($parser);
     $this->assertEquals(220, count($orig_extents));
 
     // Dump blocks to in-memory stream
@@ -107,7 +107,7 @@ class DumperUnidataTableTest extends PHPUnit_Framework_TestCase
     $newsrv = new DefaultServices($runner);
 
     // Rerun parser
-    $reparse_extents = $newsrv->getRunner()->run($parser, $newsrv);
+    $reparse_extents = $newsrv->getRunnerService()->run($parser);
 
     $this->assertEquals($orig_extents, $reparse_extents);
   }
