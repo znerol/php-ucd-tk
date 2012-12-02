@@ -2,7 +2,7 @@
 
 namespace Znerol\Unidata;
 
-class DefaultServices implements CommandServices, DumperServices {
+class DefaultServices implements CommandServices {
   private $pregBuilder;
   private $runner;
   private $set;
@@ -34,12 +34,5 @@ class DefaultServices implements CommandServices, DumperServices {
    */
   public function getSet() {
     return $this->set;
-  }
-
-  /**
-   * Return a Znerol\Unidata\Extent\Base\PregBuilder instance.
-   */
-  public function getPregBuilder() {
-    return $this->pregBuilder;
   }
 }
