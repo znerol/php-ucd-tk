@@ -11,12 +11,12 @@ class Caching extends Base {
   private $results = array();
 
   public function run(Command $command) {
-    $key = sha1(var_export($thing, true));
+    $key = sha1(var_export($command, true));
 
-    if (!isset($results[$key])) {
-      $results[$key] = parent::run($command);
+    if (!isset($this->results[$key])) {
+      $this->results[$key] = parent::run($command);
     }
 
-    return $results[$key];
+    return $this->results[$key];
   }
 }
