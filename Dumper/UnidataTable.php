@@ -1,54 +1,67 @@
 <?php
+/**
+ * @file
+ * Definition of Znerol\Unidata\Dumper\UnidataTable.
+ */
 
 namespace Znerol\Unidata\Dumper;
+
+use Znerol\Unidata\Uniprop;
 
 /**
  * Write property extents to a stream in UCD format.
  */
 class UnidataTable implements \Znerol\Unidata\Dumper
 {
+  /**
+   * Unicode property extent sets operation service instance.
+   *
+   * @var Znerol\Unidata\Uniprop\Set
+   */
+  private $set;
+
+  /**
+   * Construct new UCD table writer instance.
+   *
+   * @param Znerol\Unidata\Uniprop\Set $set
+   *   Unicode property extent sets operation service instance.
+   */
+  public function __construct(Uniprop\Set $set) {
+    $this->set = $set;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function dump($stream, $extents) {
     // Group extents by properties and values
     $bypropval = array();
     $boolprops = array();
 
-    foreach ($extents as $extent) {
-      $props = $extent->getProperties();
-
-      foreach ($props as $key => $value) {
-        if (is_bool($value)) {
-          $boolprops[$key] = $key;
-          if (!$value) {
-            continue;
-          }
-        }
-
-        $bypropval[$key][$value][] = $extent;
-      }
-    }
+    $bypropval = $this->set->group($extents, $boolprops);
 
     fwrite($stream, $this->fileHeadComment());
 
     foreach ($bypropval as $prop => $values) {
-      fwrite($stream, $this->propBeforeNameComment($prop, isset($boolprops[$key])));
+      fwrite($stream, $this->propBeforeNameComment($prop, $boolprops[$prop]));
 
       foreach ($values as $value => $extents) {
-        fwrite($stream, $this->propBeforeValueComment($prop, $value, isset($boolprops[$key]), $extents));
+        fwrite($stream, $this->propBeforeValueComment($prop, $value, $boolprops[$prop], $extents));
 
         foreach ($extents as $extent) {
           $start = $extent->getHead();
           $end = $extent->getNext() - 1;
 
           if ($start == $end) {
-            $line = $this->codepointToString($start, $prop, $value, isset($boolprops[$key]), $extent);
+            $line = $this->codepointToString($start, $prop, $value, $boolprops[$prop], $extent);
           }
           else {
-            $line = $this->rangeToString($start, $end, $prop, $value, isset($boolprops[$key]), $extent);
+            $line = $this->rangeToString($start, $end, $prop, $value, $boolprops[$prop], $extent);
           }
           fwrite($stream, $line);
         }
 
-        fwrite($stream, $this->propAfterComment($prop, $value, isset($boolprops[$key]), $extents));
+        fwrite($stream, $this->propAfterComment($prop, $value, $boolprops[$prop], $extents));
       }
     }
   }

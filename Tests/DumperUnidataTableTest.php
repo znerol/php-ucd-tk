@@ -17,7 +17,7 @@ class DumperUnidataTableTest extends PHPUnit_Framework_TestCase
   public function setUp() {
     $this->srv = new DefaultServices(new Runner\Base());
     $this->stream = fopen("php://memory", "rw");
-    $this->dumper = new Dumper\UnidataTable();
+    $this->dumper = new Dumper\UnidataTable($this->srv->getSet());
   }
 
   private function streamContentLines() {
