@@ -7,12 +7,12 @@ use Znerol\Unidata\Uniprop;
 
 class CommandUnipropCallbackTest extends PHPUnit_Framework_TestCase
 {
-  private $srv;
+  private $runner;
 
   private $reader;
 
   public function setUp() {
-    $this->srv = new DefaultServices(new Runner\Base());
+    $this->runner = new Runner\Base(new DefaultServices());
 
     // First lines of PropList-6.2.0.txt after tokenizing.
     $data = array(
@@ -77,7 +77,7 @@ class CommandUnipropCallbackTest extends PHPUnit_Framework_TestCase
       new Uniprop(0x3000, 0x3001, array('TESTPROP' => 'White_Space'),  ' Zs       IDEOGRAPHIC SPACE'),
     );
 
-    $result = $this->srv->getRunnerService()->run($command);
+    $result = $this->runner->run($command);
     $this->assertEquals($expected, $result);
   }
 
@@ -118,7 +118,7 @@ class CommandUnipropCallbackTest extends PHPUnit_Framework_TestCase
       new Uniprop(0x3000, 0x3001, array('OTHERPROP' => 'White_Space'),  'COMMENT: property value is White_Space'),
     );
 
-    $result = $this->srv->getRunnerService()->run($command);
+    $result = $this->runner->run($command);
     $this->assertEquals($expected, $result);
   }
 }

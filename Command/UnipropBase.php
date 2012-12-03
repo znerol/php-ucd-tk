@@ -3,6 +3,7 @@ namespace Znerol\Unidata\Command;
 
 use Znerol\Unidata\Command;
 use Znerol\Unidata\CommandServices;
+use Znerol\Unidata\Runner;
 use Znerol\Unidata\Uniprop;
 
 abstract class UnipropBase implements Command
@@ -13,8 +14,8 @@ abstract class UnipropBase implements Command
     $this->reader = $reader;
   }
 
-  public function run(CommandServices $srv) {
-    $rows = $srv->getRunnerService()->run($this->reader);
+  public function run(Runner $runner, CommandServices $srv) {
+    $rows = $runner->run($this->reader);
 
     $extents = array();
     foreach ($rows as $row) {

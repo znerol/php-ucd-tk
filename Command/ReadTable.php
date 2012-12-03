@@ -1,8 +1,10 @@
 <?php
 
 namespace Znerol\Unidata\Command;
+
 use Znerol\Unidata\Command;
 use Znerol\Unidata\CommandServices;
+use Znerol\Unidata\Runner;
 
 class ReadTable implements Command {
   private $url;
@@ -11,11 +13,11 @@ class ReadTable implements Command {
     $this->url = $url;
   }
 
-  public function run(CommandServices $srv) {
+  public function run(Runner $runner, CommandServices $srv) {
     $result = array();
     $expect_range_end = false;
 
-    $stream = $srv->getURLOpener()->openURL($this->url);
+    $stream = $srv->getFetcher()->fetch($this->url);
 
     while (($line = fgets($stream)) !== false) {
       // Remove comments

@@ -8,11 +8,11 @@ use Znerol\Unidata\Runner;
 
 class Base implements Runner
 {
-  public function openURL($url) {
-    return fopen($url, "r");
+  public function __construct(CommandServices $srv) {
+    $this->srv = $srv;
   }
 
-  public function run(Command $command, CommandServices $srv) {
-    return $command->run($srv);
+  public function run(Command $command) {
+    return $command->run($this, $this->srv);
   }
 }

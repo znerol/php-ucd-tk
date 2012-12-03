@@ -10,12 +10,15 @@ class DumperUnidataTableTest extends PHPUnit_Framework_TestCase
 {
   private $srv;
 
+  private $runner;
+
   private $stream;
 
   private $dumper;
 
   public function setUp() {
-    $this->srv = new DefaultServices(new Runner\Base());
+    $this->srv = new DefaultServices();
+    $this->runner = new Runner\Base($this->srv);
     $this->stream = fopen("php://memory", "rw");
     $this->dumper = new Dumper\UnidataTable($this->srv->getSet());
   }
@@ -91,23 +94,30 @@ class DumperUnidataTableTest extends PHPUnit_Framework_TestCase
     $parser = new Command\UnipropAll($reader, 'blk');
 
     // Parse using a standard runner
-    $orig_extents = $this->srv->getRunnerService()->run($parser);
+    $orig_extents = $this->runner->run($parser);
     $this->assertEquals(220, count($orig_extents));
 
     // Dump blocks to in-memory stream
     $this->dumper->dump($this->stream, $orig_extents);
     fseek($this->stream, 0);
 
-    // Setup runner to return our own stream object when openURL is called.
-    $runner = $this->getMock('Znerol\Unidata\Runner\Base', array('openURL'));
-    $runner->expects($this->once())
-      ->method('openURL')
+    // Setup fake fetcher returning the contents of the in-memory stream when
+    // called with the fixture url.
+    $fetcher = $this->getMock('Znerol\Unidata\Fetcher', array('fetch'));
+    $fetcher->expects($this->once())
+      ->method('fetch')
       ->with($this->equalTo($fixture))
       ->will($this->returnValue($this->stream));
-    $newsrv = new DefaultServices($runner);
+
+    // Patch a default services instance using the fake fetcher.
+    $services = $this->getMock('Znerol\Unidata\DefaultServices', array('getFetcher'));
+    $services->expects($this->once())
+      ->method('getFetcher')
+      ->will($this->returnValue($fetcher));
 
     // Rerun parser
-    $reparse_extents = $newsrv->getRunnerService()->run($parser);
+    $runner = new Runner\Base($services);
+    $reparse_extents = $runner->run($parser);
 
     $this->assertEquals($orig_extents, $reparse_extents);
   }

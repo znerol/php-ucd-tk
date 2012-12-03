@@ -7,12 +7,10 @@ use Znerol\Unidata\Uniprop;
 
 class CommandAggregateTest extends PHPUnit_Framework_TestCase
 {
-  private $srv;
-
-  private $reader;
+  private $runner;
 
   public function setUp() {
-    $this->srv = new DefaultServices(new Runner\Base());
+    $this->runner = new Runner\Base(new DefaultServices());
 
     // gc=White_Space
     $whitespace = array(
@@ -71,7 +69,7 @@ class CommandAggregateTest extends PHPUnit_Framework_TestCase
       $this->build_whitespace,
     ));
 
-    $result = $this->srv->getRunnerService()->run($command);
+    $result = $this->runner->run($command);
     $this->assertEquals($expected, $result);
   }
 
@@ -97,7 +95,7 @@ class CommandAggregateTest extends PHPUnit_Framework_TestCase
       $this->build_mandatory_break,
     ));
 
-    $result = $this->srv->getRunnerService()->run($command);
+    $result = $this->runner->run($command);
     $this->assertEquals($expected, $result);
   }
 

@@ -24,5 +24,5 @@ interface Command
    * This method may not modify the object, i.e. it may not add or alter any
    * instance variables.
    */
-  public function run(CommandServices $srv);
+  public function run(Runner $caller, CommandServices $srv);
 }

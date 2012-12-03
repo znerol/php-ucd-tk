@@ -5,14 +5,9 @@ namespace Znerol\Unidata;
 interface CommandServices
 {
   /**
-   * Return a Znerol\Unidata\Runner instance.
+   * Return a Znerol\Unidata\Fetcher instance.
    */
-  public function getRunner();
-
-  /**
-   * Return a Znerol\Unidata\Runner instance.
-   */
-  public function getURLOpener();
+  public function getFetcher();
 
   /**
    * Return a Znerol\Unidata\Uniprops\Set instance.

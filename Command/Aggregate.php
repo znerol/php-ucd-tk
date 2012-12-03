@@ -4,6 +4,7 @@ namespace Znerol\Unidata\Command;
 
 use Znerol\Unidata\Command;
 use Znerol\Unidata\CommandServices;
+use Znerol\Unidata\Runner;
 
 class Aggregate implements Command 
 {
@@ -13,14 +14,13 @@ class Aggregate implements Command
     $this->commands = $commands;
   }
 
-  public function run(CommandServices $srv) {
+  public function run(Runner $runner, CommandServices $srv) {
     $result = array();
 
     $set = $srv->getSet();
-    $run = $srv->getRunnerService();
 
     foreach ($this->commands as $command) {
-      $tmp = $run->run($command);
+      $tmp = $runner->run($command);
       $tmp = $set->difference($tmp, $result);
       $result = $set->union($result, $tmp);
     }
