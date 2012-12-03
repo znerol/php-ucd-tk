@@ -20,7 +20,6 @@ class FetcherCachingTest extends PHPUnit_Framework_TestCase
     $second_chunk = 'and now for something completely different';
 
     file_put_contents($this->tmpfile, $first_chunk);
-    sleep(1);
     $stream = $this->fetcher->fetch($this->tmpfile);
     $this->assertEquals($first_chunk, fread($stream, 64));
 
