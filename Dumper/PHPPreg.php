@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Definition of Znerol\Unidata\Dumper\PHPPreg.
+ */
 
 namespace Znerol\Unidata\Dumper;
 
@@ -6,13 +10,44 @@ use Znerol\Unidata\Dumper;
 use Znerol\Unidata\Uniprop;
 use Znerol\Unidata\Extent\Base;
 
+/**
+ * Write property extents to a stream as a PHP class containing preg patterns
+ * as constant members.
+ */
 class PHPPreg implements Dumper {
+  /**
+   * Name of resulting class including its namespace.
+   *
+   * @var string
+   */
   private $classname;
 
+  /**
+   * Unicode property extent sets operation service instance.
+   *
+   * @var Znerol\Unidata\Uniprop\Set
+   */
   private $set;
 
+  /**
+   * Instance capable of converting extent sets to preg regex patterns.
+   *
+   * @var Znerol\Unidata\Extent\Base\PregBuilder
+   */
   private $builder;
 
+  /**
+   * Create a PHP preg writer instance.
+   *
+   * @param string $classname
+   *   Name of resulting class including its namespace.
+   *
+   * @param Znerol\Unidata\Uniprop\Set $set
+   *   Unicode property extent sets operation service instance
+   *
+   * @param Znerol\Unidata\Extent\Base\PregBuilder
+   *   Instance capable of converting extent sets to preg regex patterns.
+   */
   public function __construct($classname, Uniprop\Set $set, Base\PregBuilder $builder) {
     $this->classname = $classname;
     $this->set = $set;
