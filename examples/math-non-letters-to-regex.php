@@ -1,9 +1,12 @@
 <?php
 require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
-use Znerol\Unidata;
+use Znerol\Unidata\Command;
+use Znerol\Unidata\DefaultServices;
+use Znerol\Unidata\Dumper;
+use Znerol\Unidata\Extent\Base\PregBuilder;
 
-class ExtractMath extends Unidata\Command\UnipropAll {
+class ExtractMath extends Command\UnipropAll {
   protected function getProps($start, $end, $fields, $comment) {
     if ($fields[1] == 'Math') {
       return array(
@@ -13,22 +16,23 @@ class ExtractMath extends Unidata\Command\UnipropAll {
   }
 }
 
-$srv = new Unidata\DefaultServices();
+$srv = new DefaultServices();
+$runner = new Runner\Base($srv);
 
-$reader = new Unidata\Command\ReadTable(
+$reader = new Command\ReadTable(
   'http://www.unicode.org/Public/UNIDATA/DerivedCoreProperties.txt');
 
-$math_extents = $srv->run(
+$math_extents = $runner->run(
   new ExtractMath($reader, 'Non_Alpha_Math', 'math rule'));
 
-$alpha_extents = $srv->run(new Unidata\Command\UnipropCallback($reader, function($start, $end, $fields, $comment) {
+$alpha_extents = $runner->run(new Command\UnipropCallback($reader, function($start, $end, $fields, $comment) {
   if ($fields[1] == 'Alphabetic') {
     return array('alpha' => true);
   }
 }));
 
 $set = $srv->getSet();
-$non_alpha_math_extents = $srv->difference($math_extents, $alpha_extents);
+$non_alpha_math_extents = $set->difference($math_extents, $alpha_extents);
 
-$dumper = new Unidata\Dumper\PHPPreg('my\ns\NonAlphExtentsPattern', $set, new Unidata\Extent\Base\PregBuilder());
+$dumper = new Dumper\PHPPreg('my\ns\NonAlphExtentsPattern', $set, new PregBuilder());
 $dumper->dump(fopen("php://stdout", "w"), $non_alpha_math_extents);
