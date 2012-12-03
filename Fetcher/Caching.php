@@ -12,14 +12,14 @@ class Caching extends Base {
   public function fetch($url) {
     $key = $this->hashURL($url);
 
-    if (!isset($resources[$key])) {
+    if (!isset($this->resources[$key])) {
       $source = parent::fetch($url);
-      $resources[$key] = fopen("php://temp", "rw");
-      stream_copy_to_stream($source, $resources[$key]);
+      $this->resources[$key] = fopen("php://temp", "rw");
+      stream_copy_to_stream($source, $this->resources[$key]);
     }
 
-    fseek($resources[$key], 0);
-    return $resources[$key];
+    fseek($this->resources[$key], 0);
+    return $this->resources[$key];
   }
 
   public function hashURL($url) {
@@ -33,12 +33,13 @@ class Caching extends Base {
       'fragment' => '',
     );
 
-    $parts = parse_url("hello-world.txt") + $defaults;
+    $parts = parse_url($url) + $defaults;
     if ($parts['scheme'] == 'file') {
       $path = realpath($parts['path']);
       if (!$path) {
         return false;
       }
+      $parts['path'] = $path;
     }
 
     // lowercase hostname
