@@ -1,23 +1,45 @@
 <?php
+/**
+ * @file
+ * Definition of Znerol::Unidata::Extent::Set
+ */
 
 namespace Znerol\Unidata\Extent;
 
+/**
+ * This class implements set operations on array of extents like union and 
+ * difference.
+ */
 class Set {
-
   /**
-   * Reference to an \Znerol\Unidata\Extent\OperationsDelegate
+   * Reference to an Extent::OperationsDelegate
    */
   private $ops;
 
   /**
-   * 
+   * Construct new instance providing set operations for extents.
+   *
+   * @param Extent::OperationsDelegate $operationsDelegate
+   *   A class capable of performing binary operations on extents.
    */
   public function __construct(OperationsDelegate $operationsDelegate) {
     $this->ops = $operationsDelegate;
   }
 
   /**
-   * Build the union of two sets of extents.
+   * Build the union of two lists of extents.
+   *
+   * Note that the objects in this list need to be of a type matching the
+   * $operationsDelegate implementation.
+   *
+   * @param array $a
+   *   List of extents.
+   *
+   * @param array $b
+   *   (Optional) additional list of extents.
+   *
+   * @retval array
+   *   List of non-overlapping extents from `$a` and `$b`.
    */
   public function union($a, $b = NULL) {
     $extents = empty($b) ? $a : array_merge($a, $b);
@@ -46,6 +68,15 @@ class Set {
   /**
    * Returns the list of extents from the first parameter with any overlaps 
    * with the extents from second parameter removed.
+   *
+   * @param array $a
+   *   List of extents.
+   *
+   * @param array $b
+   *   (Optional) additional list of extents.
+   *
+   * @retval array
+   *   List of non-overlapping extents from `$a` minus `$b`.
    */
   public function difference($a, $b) {
     if (empty($a) || empty($b)) {
@@ -95,6 +126,12 @@ class Set {
   /**
    * Given a sorted array of extents, return the index of the first extent 
    * disjoint to its predecessor. Returns false if there are no gaps.
+   *
+   * @param array $extents
+   *   List of extents.
+   *
+   * @retval int
+   *   Index of first extent disjoint to its precedessor or false.
    */
   public function firstGap($extents) {
     $last = reset($extents);
@@ -110,6 +147,12 @@ class Set {
   /**
    * Given a sorted array of extents, return the index of the first extent
    * overlapping with its predecessor. Returns false if there are no overlaps.
+   *
+   * @param array $extents
+   *   List of extents.
+   *
+   * @retval int
+   *   Index of first extent overlapping with its precedessor or false.
    */
   public function firstOverlap($extents) {
     $last = reset($extents);
@@ -124,6 +167,12 @@ class Set {
 
   /**
    * Return an array containing the given extents in ascending order
+   *
+   * @param array $extents
+   *   List of extents.
+   *
+   * @retval array
+   *   Sorted list of extents.
    */
   public function sorted($extents) {
     usort($extents, array($this->ops, 'compare'));
