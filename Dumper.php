@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Definition of Znerol\Unidata\Dumper
+ * Definition of Znerol::Unidata::Dumper.
  */
 
 namespace Znerol\Unidata;
@@ -17,8 +17,8 @@ interface Dumper
    * @param Stream $stream
    *   An output stream where the serialized extents will be written to.
    *
-   * @param Array $extents
-   *   An array of Znerol\Unidata\Uniprop\Extent objects.
+   * @param array $extents
+   *   An array of Znerol::Unidata::Uniprop objects.
    */
   public function dump($stream, $extents);
 }

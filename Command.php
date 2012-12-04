@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Definition of Znerol\Unidata\Command
+ * Definition of Znerol::Unidata::Command
  */
 
 namespace Znerol\Unidata;
@@ -23,6 +23,13 @@ interface Command
    *
    * This method may not modify the object, i.e. it may not add or alter any
    * instance variables.
+   *
+   * @param $runner
+   *   The calling runner. Implementations may use this to invoke other commands.
+   * @param $srv
+   *   Container for common services used by implementations.
+   * @retval mixed
+   *   Result of command.
    */
-  public function run(Runner $caller, CommandServices $srv);
+  public function run(Runner $runner, CommandServices $srv);
 }
