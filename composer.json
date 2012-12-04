@@ -7,7 +7,7 @@
             "email": "lo@znerol.ch"
         }
     ],
-    "license ": "MIT",
+    "license": "MIT",
     "require": {},
     "autoload": {
         "psr-0": { "Znerol\\Unidata": "" }
