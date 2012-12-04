@@ -1,12 +1,11 @@
 <?php
 /**
  * @file
- * Definition of Znerol\Unidata\Dumper\PHPPreg.
+ * Definition of Znerol::Unidata::Dumper::PHPPreg.
  */
 
 namespace Znerol\Unidata\Dumper;
 
-use Znerol\Unidata\Dumper;
 use Znerol\Unidata\Uniprop;
 use Znerol\Unidata\Extent\Base;
 
@@ -14,25 +13,19 @@ use Znerol\Unidata\Extent\Base;
  * Write property extents to a stream as a PHP class containing preg patterns
  * as constant members.
  */
-class PHPPreg implements Dumper {
+class PHPPreg implements \Znerol\Unidata\Dumper {
   /**
    * Name of resulting class including its namespace.
-   *
-   * @var string
    */
   private $classname;
 
   /**
    * Unicode property extent sets operation service instance.
-   *
-   * @var Znerol\Unidata\Uniprop\Set
    */
   private $set;
 
   /**
    * Instance capable of converting extent sets to preg regex patterns.
-   *
-   * @var Znerol\Unidata\Extent\Base\PregBuilder
    */
   private $builder;
 
@@ -42,10 +35,10 @@ class PHPPreg implements Dumper {
    * @param string $classname
    *   Name of resulting class including its namespace.
    *
-   * @param Znerol\Unidata\Uniprop\Set $set
+   * @param Uniprop::Set $set
    *   Unicode property extent sets operation service instance
    *
-   * @param Znerol\Unidata\Extent\Base\PregBuilder
+   * @param Extent::Base::PregBuilder $builder
    *   Instance capable of converting extent sets to preg regex patterns.
    */
   public function __construct($classname, Uniprop\Set $set, Base\PregBuilder $builder) {
@@ -56,6 +49,11 @@ class PHPPreg implements Dumper {
 
   /**
    * Dump the specified sorted extents to a PHP class.
+   *
+   * @param Stream $stream
+   *   File object where serialized extents are written to.
+   * @param array $extents
+   *   List of Uniprop objects to write.
    */
   public function dump($stream, $extents) {
     // Ensure that extents do not have any overlaps.

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Definition of Znerol\Unidata\Dumper\UnidataTable.
+ * Definition of Znerol::Unidata::Dumper::UnidataTable.
  */
 
 namespace Znerol\Unidata\Dumper;
@@ -15,15 +15,13 @@ class UnidataTable implements \Znerol\Unidata\Dumper
 {
   /**
    * Unicode property extent sets operation service instance.
-   *
-   * @var Znerol\Unidata\Uniprop\Set
    */
   private $set;
 
   /**
    * Construct new UCD table writer instance.
    *
-   * @param Znerol\Unidata\Uniprop\Set $set
+   * @param Uniprop::Set $set
    *   Unicode property extent sets operation service instance.
    */
   public function __construct(Uniprop\Set $set) {
@@ -31,7 +29,12 @@ class UnidataTable implements \Znerol\Unidata\Dumper
   }
 
   /**
-   * {@inheritDoc}
+   * Dump the specified sorted extents as a text file in UCD format.
+   *
+   * @param Stream $stream
+   *   File object where serialized extents are written to.
+   * @param array $extents
+   *   List of Uniprop objects to write.
    */
   public function dump($stream, $extents) {
     // Group extents by properties and values
