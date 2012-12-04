@@ -1,10 +1,11 @@
 <?php
 require_once dirname(__FILE__) . '/../vendor/autoload.php';
-require_once 'CachingServices.php';
 
 use Znerol\Unidata\Command;
+use Znerol\Unidata\DefaultServices;
 use Znerol\Unidata\Dumper;
 use Znerol\Unidata\Extent\Base\PregBuilder;
+use Znerol\Unidata\Fetcher;
 use Znerol\Unidata\Runner;
 
 $stderr = fopen("php://stderr", "r");
@@ -19,7 +20,8 @@ class ExtractMath extends Command\UnipropAll {
   }
 }
 
-$srv = new CachingServices();
+$srv = new DefaultServices();
+$srv->setFetcher(new Fetcher\Caching());
 $runner = new Runner\Caching($srv);
 
 $reader = new Command\ReadTable(
