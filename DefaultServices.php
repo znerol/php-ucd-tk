@@ -19,14 +19,14 @@ class DefaultServices implements CommandServices {
   }
 
   /**
-   * @copydoc Znerol::Unidata::CommandServices::getFetcher
+   * @copydoc CommandServices::getFetcher
    */
   public function getFetcher() {
     return $this->fetcher;
   }
 
   /**
-   * @copydoc Znerol::Unidata::CommandServices::getSet
+   * @copydoc CommandServices::getSet
    */
   public function getSet() {
     return $this->set;
@@ -35,8 +35,8 @@ class DefaultServices implements CommandServices {
   /**
    * Replace the default fetcher with the given instance.
    *
-   * @param $fetcher
-   *   New Znerol::Unidata::Fetcher instance
+   * @param Fetcher $fetcher
+   *   New Fetcher instance
    */
   public function setFetcher(Fetcher $fetcher) {
     $this->fetcher = $fetcher;
@@ -45,8 +45,8 @@ class DefaultServices implements CommandServices {
   /**
    * Replace the default uniprop set instance with the given object.
    *
-   * @param $set
-   *   New Znerol::Unidata::Uniprop\Set instance
+   * @param Uniprop::Set $set
+   *   New Uniprop::Set instance
    */
   public function setSet(Uniprop\Set $set) {
     $this->set = $set;
