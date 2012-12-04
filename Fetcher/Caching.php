@@ -1,14 +1,22 @@
 <?php
+/**
+ * @file
+ * Definition of Znerol::Unidata::Fetcher::Caching
+ */
 
 namespace Znerol\Unidata\Fetcher;
 use Znerol\Unidata\Command;
 
 /**
- * Simple fetcher implementation capable of caching resources in memory.
+ * Simple Znerol::Unidata::Fetcher implementation capable of caching resources 
+ * in memory.
  */
 class Caching extends Base {
   private $resources = array();
 
+  /**
+   * @copydoc Znerol::Unidata::Fetcher::fetch
+   */
   public function fetch($url) {
     $key = $this->hashURL($url);
 
@@ -22,6 +30,14 @@ class Caching extends Base {
     return $this->resources[$key];
   }
 
+  /**
+   * Calculate a unique key after normalizing the given URL.
+   *
+   * @param string $url
+   *   An URL
+   * @retval string
+   *   A unique key for that URL
+   */
   public function hashURL($url) {
     $defaults = array(
       'scheme' => 'file',
