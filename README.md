@@ -19,6 +19,18 @@ Examples
 Refer to the _examples_ directory of the project source code for guidance on
 how to build your tools using the PHP Unicode Data Toolkit.
 
+Source Code
+-----------
+
+The source code is hosted on github:
+
+    git clone git://github.com/znerol/php-ucd-tk.git
+    cd php-ucd-tk
+
+An issue tracker and the wiki page is available at
+https://github.com/znerol/php-ucd-tk
+
+
 API Documentation
 -----------------
 
