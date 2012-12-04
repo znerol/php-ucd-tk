@@ -101,24 +101,17 @@ class DumperUnidataTableTest extends PHPUnit_Framework_TestCase
     $this->dumper->dump($this->stream, $orig_extents);
     fseek($this->stream, 0);
 
-    // Setup fake fetcher returning the contents of the in-memory stream when
+    // Inject fake fetcher returning the contents of the in-memory stream when
     // called with the fixture url.
     $fetcher = $this->getMock('Znerol\Unidata\Fetcher', array('fetch'));
     $fetcher->expects($this->once())
       ->method('fetch')
       ->with($this->equalTo($fixture))
       ->will($this->returnValue($this->stream));
-
-    // Patch a default services instance using the fake fetcher.
-    $services = $this->getMock('Znerol\Unidata\DefaultServices', array('getFetcher'));
-    $services->expects($this->once())
-      ->method('getFetcher')
-      ->will($this->returnValue($fetcher));
+    $this->srv->setFetcher($fetcher);
 
     // Rerun parser
-    $runner = new Runner\Base($services);
-    $reparse_extents = $runner->run($parser);
-
+    $reparse_extents = $this->runner->run($parser);
     $this->assertEquals($orig_extents, $reparse_extents);
   }
 }
