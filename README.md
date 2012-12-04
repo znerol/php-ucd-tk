@@ -22,7 +22,7 @@ how to build your tools using the PHP Unicode Data Toolkit.
 API Documentation
 -----------------
 
-See http://znerol.github.com/ucd-tk/api/html
+See http://znerol.github.com/php-ucd-tk/doc/api/html
 
 License
 -------
