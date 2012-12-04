@@ -1,12 +1,19 @@
 <?php
+/**
+ * @file
+ * Definition of Znerol::Unidata::Uniprop::Operations
+ */
 
 namespace Znerol\Unidata\Uniprop;
 
 use InvalidArgumentException;
-use Znerol\Unidata\Extent\Base;
 use Znerol\Unidata\Uniprop;
 
-class Operations extends Base\Operations
+/**
+ * Implementation for unary and binary operations on instances of
+ * Uniprop.
+ */
+class Operations extends \Znerol\Unidata\Extent\Base\Operations
 {
   protected function newExtent($head, $next, $context = array()) {
     return new Uniprop($head, $next, $context['args'][0]->getProperties(), $context['args'][0]->getComment());

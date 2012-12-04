@@ -26,7 +26,7 @@ class PregBuilder {
    * @param array $extents
    *   List of Extent::Base::Extent instances.
    *
-   * @param string
+   * @retval string
    *   PCRE compatible character class without enclosing brackets.
    */
   public function charclass($extents) {
@@ -56,6 +56,9 @@ class PregBuilder {
    * @param bool $negate
    *   (optional) negate the character class by prepending a circumflex (^) if
    *   set to `true`.
+   *
+   * @retval string
+   *   subpattern expression
    *
    * [subpattern]:
    *   http://php.net/manual/en/regexp.reference.subpatterns.php
