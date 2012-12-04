@@ -18,7 +18,7 @@ interface Dumper
    *   An output stream where the serialized extents will be written to.
    *
    * @param array $extents
-   *   An array of Znerol::Unidata::Uniprop objects.
+   *   An array of Uniprop objects.
    */
   public function dump($stream, $extents);
 }

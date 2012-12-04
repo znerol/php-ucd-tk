@@ -8,14 +8,13 @@ namespace Znerol\Unidata\Fetcher;
 use Znerol\Unidata\Command;
 
 /**
- * Simple Znerol::Unidata::Fetcher implementation capable of caching resources 
- * in memory.
+ * Simple Fetcher implementation capable of caching resources in memory.
  */
 class Caching extends Base {
   private $resources = array();
 
   /**
-   * @copydoc Znerol::Unidata::Fetcher::fetch
+   * @copydoc Fetcher::fetch
    */
   public function fetch($url) {
     $key = $this->hashURL($url);

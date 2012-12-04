@@ -13,7 +13,7 @@ use Znerol\Unidata\Runner;
 /**
  * Implements a Command capable of aggregating the results of an array of
  * subcommands. Every subcommand must return an array of
- * Znerol::Unidata::Uniprop objects. Using this command it is possible to
+ * Uniprop objects. Using this command it is possible to
  * essentially implement the algorithm used to calculate derived properties as
  * described in the [Precis Framework] or [RFC5892].
  *
@@ -27,7 +27,7 @@ use Znerol\Unidata\Runner;
 class Aggregate implements Command
 {
   /**
-   * List of instances of Znerol::Unidata::Command
+   * List of instances of Command
    */
   private $commands;
 

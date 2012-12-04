@@ -7,7 +7,7 @@
 namespace Znerol\Unidata;
 
 /**
- * Default implementation of Znerol::Unidata::CommandServices.
+ * Default implementation of CommandServices.
  */
 class DefaultServices implements CommandServices {
   private $set;

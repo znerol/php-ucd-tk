@@ -12,14 +12,13 @@ use Znerol\Unidata\Runner;
 use Znerol\Unidata\Uniprop;
 
 /**
- * Abstract base class for parsers turning data from
- * Znerol::Unidata::Command::ReadTable into an array of
- * Znerol::Unidata::Uniprop instances.
+ * Abstract base class for parsers turning data from Command::ReadTable into an
+ * array of Uniprop instances.
  */
 abstract class UnipropBase implements Command
 {
   /**
-   * The reader Command. Typically an instance of Znerol::Unidata::Command::ReadTable.
+   * The reader Command. Typically an instance of Command::ReadTable.
    */
   private $reader;
 
@@ -27,8 +26,8 @@ abstract class UnipropBase implements Command
    * Construct a new instance with the given reader.
    *
    * @param Reader $reader
-   *   Instance of Znerol::Unidata::Command::ReadTable used to generate an
-   *   array of plain UDC records.
+   *   Instance of Command::ReadTable used to generate an array of plain UDC
+   *   records.
    */
   public function __construct(Command $reader) {
     $this->reader = $reader;

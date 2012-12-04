@@ -13,7 +13,7 @@ namespace Znerol\Unidata\Fetcher;
 class Base implements \Znerol\Unidata\Fetcher
 {
   /**
-   * @copydoc Znerol::Unidata::Fetcher::fetch.
+   * @copydoc Fetcher::fetch.
    */
   public function fetch($url) {
     return fopen($url, 'r');

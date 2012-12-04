@@ -9,9 +9,8 @@ namespace Znerol\Unidata\Command;
 use Znerol\Unidata\Command;
 
 /**
- * Simple parser capable of transfroming the output of
- * Znerol::Unidata::Command::ReadTable into an array of
- * Znerol::Unidata::Uniprop instances using callback functions.
+ * Simple parser capable of transfroming the output of Command::ReadTable into
+ * an array of Uniprop instances using callback functions.
  */
 class UnipropCallback extends UnipropBase
 {
@@ -29,8 +28,8 @@ class UnipropCallback extends UnipropBase
    * Construct a new instance with the given reader and callbacks.
    *
    * @param Command $reader
-   *   Instance of Znerol::Unidata::Command::ReadTable used to generate an
-   *   array of plain UDC records.
+   *   Instance of Command::ReadTable used to generate an array of plain UDC
+   *   records.
    *
    * @param callable $propcallback
    *   A function with the signature `f($start, $end, $fields, $comment) -> array`

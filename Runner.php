@@ -7,8 +7,7 @@
 namespace Znerol\Unidata;
 
 /**
- * Interface for classes capable of executing Znerol::Unidata::Command
- * instances.
+ * Interface for classes capable of executing Command instances.
  */
 interface Runner
 {

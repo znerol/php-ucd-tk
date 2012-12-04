@@ -10,8 +10,8 @@ use Znerol\Unidata\Command;
 
 /**
  * Simple parser capable of transfroming the output of
- * Znerol::Unidata::Command::ReadTable into an array of
- * Znerol::Unidata::Uniprop instances.
+ * Command::ReadTable into an array of
+ * Uniprop instances.
  */
 class UnipropAll extends UnipropBase
 {
@@ -29,7 +29,7 @@ class UnipropAll extends UnipropBase
    * Construct a new uniprop transformer command.
    *
    * @param Command $reader
-   *   A Command generating output of the form like Znerol::Unidata::Command::ReadTable
+   *   A Command generating output of the form like Command::ReadTable
    * @param string $propname
    *   The property to which the value from field 1 will be assigned to
    * @param string $comment
