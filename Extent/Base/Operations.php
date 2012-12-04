@@ -1,11 +1,32 @@
 <?php
+/**
+ * @file
+ * Definition of Znerol::Unidata::Extent::Base::Operations
+ */
 
 namespace Znerol\Unidata\Extent\Base;
 
 use Znerol\Unidata\Extent\OperationsDelegate;
 
+/**
+ * Implementation for unary and binary operations on instances of
+ * Extent::Basic::Extent.
+ */
 class Operations implements OperationsDelegate
 {
+  /**
+   * Construct and return a new extent.
+   *
+   * @param int $head
+   *   First position in this range.
+   *
+   * @param int $next
+   *   First position after the range.
+   *
+   * @param array $context
+   *   Key-value pairs defining the method and conditions which lead to the
+   *   necessity to construct a new extent.
+   */
   protected function newExtent($head, $next, $context = array()) {
     return new Extent($head, $next);
   }
@@ -50,11 +71,5 @@ class Operations implements OperationsDelegate
     }
 
     return $result;
-  }
-
-  public function range($extent) {
-    $range = range($extent->getHead(), $extent->getNext());
-    array_pop($range);
-    return $range;
   }
 }
